@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "kurakura",
+    "database": "book_development",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "kurakura",
+    "database": "book_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "kurakura",
+    "database": "book_production",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
