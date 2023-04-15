@@ -1,4 +1,13 @@
 const createBook = require("./createBook");
+const deleteBook = require("./deleteBook");
 const { getAllBooks, getBooksById } = require("./getBook");
-createBook;
-module.exports = { getAllBooks, getBooksById, createBook };
+const updateBook = require("./updateBook");
+updateBook;
+
+module.exports = {
+  getAllBooks,
+  getBooksById,
+  createBook,
+  updateBook,
+  deleteBook,
+};
