@@ -1,13 +1,6 @@
-// const { Books } = require("../../../models");
 const bookService = require("../../../services/bookService");
 
 module.exports = {
-  // getAllBooks: (req, res) => {
-  //   Books.findAll().then((books) => {
-  //     res.status(200).json(books);
-  //   });
-  // },
-
   list(req, res) {
     bookService
       .list()
@@ -25,14 +18,6 @@ module.exports = {
       });
   },
 
-  // getBooksById: (req, res) => {
-  //   Books.findOne({
-  //     where: { id: req.params.id },
-  //   }).then((article) => {
-  //     res.status(200).json(article);
-  //   });
-  // },
-
   getById(req, res) {
     bookService
       .get(req.params.id)
@@ -49,25 +34,6 @@ module.exports = {
         });
       });
   },
-  // createBook: (req, res) => {
-  //   try {
-  //     const url = req.image;
-  //     Books.create({
-  //       title: req.body.title,
-  //       desc: req.body.desc,
-  //       image: url,
-  //       author: req.body.author,
-  //     }).then(() => {
-  //       res.status(200).json("Data has ben created");
-  //     });
-  //   } catch (err) {
-  //     res.json({
-  //       msg: "Bad request",
-  //       status: 400,
-  //     });
-  //     return;
-  //   }
-  // },
 
   create(req, res) {
     const url = req.image;
@@ -91,27 +57,6 @@ module.exports = {
         });
       });
   },
-  // updateBook: (req, res) => {
-  //   try {
-  //     const book = req.book;
-  //     const url = req.image || book.image;
-  //     Books.update(
-  //       {
-  //         title: req.body.title,
-  //         desc: req.body.desc,
-  //         image: url,
-  //         author: req.body.author,
-  //       },
-  //       { where: { id: book.id } }
-  //     ).then(() => {
-  //       res.status(201).json("Update Success");
-  //     });
-  //   } catch {
-  //     (err) => {
-  //       console.log(err);
-  //     };
-  //   }
-  // },
 
   update(req, res) {
     const url = req.image;
@@ -134,7 +79,7 @@ module.exports = {
         });
       });
   },
-  // deleteBook: (req, res) => {
+
   //   Books.destroy({ where: { id: req.params.id } }).then(() => {
   //     res.status(200).json("Delete Success");
   //   });
