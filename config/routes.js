@@ -69,6 +69,11 @@ appRouter.get(
 /**
  * Authentication Resource
  * */
+apiRouter.get(
+  "/api/v2/whoami",
+  controllers.api.v2.authController.authorize,
+  controllers.api.v2.authController.whoAmI
+);
 apiRouter.post("/api/v2/login", controllers.api.v2.authController.login);
 apiRouter.post("/api/v2/register", controllers.api.v2.authController.register);
 

@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { User } = require("../../../models");
 const SALT = 10;
 
@@ -26,6 +27,10 @@ function checkPassword(encryptedPassword, password) {
       resolve(isPasswordCorrect);
     });
   });
+}
+
+function createToken(payload) {
+  return jwt.sign(payload, process.env.JWT_SIGNATURE_KEY || "Rahasia");
 }
 
 module.exports = {
@@ -64,12 +69,42 @@ module.exports = {
       return;
     }
 
-    res.status(201).json({
+    const token = createToken({
       id: user.id,
       email: user.email,
-      token: "iniToken", // Kita bakal ngomongin ini lagi nanti.
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     });
+
+    res.status(201).json({
+      id: user.id,
+      email: user.email,
+      token,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    });
+  },
+
+  async whoAmI(req, res) {
+    res.status(200).json(req.user);
+  },
+
+  async authorize(req, res, next) {
+    try {
+      const bearerToken = req.headers.authorization;
+      const token = bearerToken.split("Bearer ")[1];
+      const tokenPayload = jwt.verify(
+        token,
+        process.env.JWT_SIGNATURE_KEY || "Rahasia"
+      );
+
+      req.user = await User.findByPk(tokenPayload.id);
+      next();
+    } catch (err) {
+      console.error(err);
+      res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
   },
 };
