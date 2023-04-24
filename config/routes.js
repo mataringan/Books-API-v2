@@ -45,6 +45,36 @@ apiRouter.put(
 
 apiRouter.delete("/v2/book/:id", isAdmin, controllers.api.v2.book.delete);
 
+appRouter.get(
+  "/",
+  controllers.authController.authorizedOnly,
+  controllers.mainController.index
+);
+appRouter.get(
+  "/login",
+  controllers.authController.publicOnly,
+  controllers.mainController.login
+);
+appRouter.post(
+  "/login",
+  controllers.authController.publicOnly,
+  controllers.authController.login
+);
+appRouter.get(
+  "/logout",
+  controllers.authController.authorizedOnly,
+  controllers.authController.logout
+);
+
+/**
+ * Authentication Resource
+ * */
+apiRouter.post("/api/v2/login", controllers.api.v2.authController.login);
+apiRouter.post("/api/v2/register", controllers.api.v2.authController.register);
+
+apiRouter.use(controllers.api.main.onLost);
+apiRouter.use(controllers.api.main.onError);
+
 appRouter.use(apiRouter);
 
 module.exports = appRouter;
